@@ -55,8 +55,8 @@ public class HadoopWordCount {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
 
-        FileInputFormat.addInputPath(job, new Path("/profile"));
-        FileOutputFormat.setOutputPath(job, new Path("/out1"));
+        FileInputFormat.addInputPath(job, new Path("hdfs://127.0.0.1:9000"+"/profile"));
+        FileOutputFormat.setOutputPath(job, new Path("hdfs://127.0.0.1:9000"+"/out1"));
         System.exit(job.waitForCompletion(true) ? 0 : 1);
     }
 }
