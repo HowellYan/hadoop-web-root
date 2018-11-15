@@ -24,7 +24,7 @@ public class HadoopWebTools {
     public static void uploadInputFile(String localFile) throws IOException {
         Configuration conf = new Configuration();
         String hdfsPath = "hdfs://localhost:9000/";
-        String hdfsInput = "hdfs://localhost:9000/user/hadoop/input";
+        String hdfsInput = "hdfs://localhost:9000/profile";
         FileSystem fs = FileSystem.get(URI.create(hdfsPath), conf);
         fs.copyFromLocalFile(new Path(localFile), new Path(hdfsInput));
         fs.close();
@@ -53,7 +53,7 @@ public class HadoopWebTools {
      */
     public static void deleteOutput() throws IOException{
         Configuration conf = new Configuration();
-        String hdfsOutput = "hdfs://localhost:9000/myspider";
+        String hdfsOutput = "hdfs://localhost:9000/out2";
         String hdfsPath = "hdfs://localhost:9000/";
         Path path = new Path(hdfsOutput);
         FileSystem fs = FileSystem.get(URI.create(hdfsPath), conf);
@@ -100,7 +100,8 @@ public class HadoopWebTools {
 
     public static void main(String[] args){
         try {
-            deleteOutput();
+            uploadInputFile("/etc/profile");
+            //deleteOutput();
         } catch (Exception e){
 
         }

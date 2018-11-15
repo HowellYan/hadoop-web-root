@@ -115,7 +115,7 @@ public class AriticleInvertedIndex {
 
 
             FileInputFormat.addInputPath(job, new Path("hdfs://127.0.0.1:9000/myspider/"));
-            FileOutputFormat.setOutputPath(job, new Path("hdfs://127.0.0.1:9000/myspider_outindex"+System.currentTimeMillis()+"/"));
+            FileOutputFormat.setOutputPath(job, new Path("hdfs://127.0.0.1:9000/myspider_outindex/"));
 
             System.exit(job.waitForCompletion(true) ? 0 : 1);
         } catch (IllegalStateException e) {
