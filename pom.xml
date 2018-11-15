@@ -34,6 +34,12 @@
             <version>${hadoopVersion}</version>
         </dependency>
         <!-- Hadoop -->
+        <!-- https://mvnrepository.com/artifact/org.htmlparser/htmlparser -->
+        <dependency>
+            <groupId>org.htmlparser</groupId>
+            <artifactId>htmlparser</artifactId>
+            <version>1.6</version>
+        </dependency>
 
     </dependencies>
 

@@ -53,7 +53,7 @@ public class HadoopWebTools {
      */
     public static void deleteOutput() throws IOException{
         Configuration conf = new Configuration();
-        String hdfsOutput = "hdfs://localhost:9000/user/hadoop/output";
+        String hdfsOutput = "hdfs://localhost:9000/myspider";
         String hdfsPath = "hdfs://localhost:9000/";
         Path path = new Path(hdfsOutput);
         FileSystem fs = FileSystem.get(URI.create(hdfsPath), conf);
@@ -95,6 +95,14 @@ public class HadoopWebTools {
             }
             result.set(sum);
             context.write(key, result);
+        }
+    }
+
+    public static void main(String[] args){
+        try {
+            deleteOutput();
+        } catch (Exception e){
+
         }
     }
 
