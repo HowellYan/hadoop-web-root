@@ -32,6 +32,10 @@ public class WordCount {
         Job job = Job.getInstance(conf, "word count");
         job.setJarByClass(WordCount.class);
 
+        /**
+         * 设置reduce任务个数
+         */
+        job.setNumReduceTasks(1);
 //5.map
         job.setMapperClass(WordCount.TokenizerMapper.class);
 
