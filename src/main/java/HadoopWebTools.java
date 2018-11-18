@@ -53,7 +53,7 @@ public class HadoopWebTools {
      */
     public static void deleteOutput() throws IOException{
         Configuration conf = new Configuration();
-        String hdfsOutput = "hdfs://localhost:9000/out2";
+        String hdfsOutput = "hdfs://localhost:9000/out4";
         String hdfsPath = "hdfs://localhost:9000/";
         Path path = new Path(hdfsOutput);
         FileSystem fs = FileSystem.get(URI.create(hdfsPath), conf);
@@ -100,8 +100,8 @@ public class HadoopWebTools {
 
     public static void main(String[] args){
         try {
-            uploadInputFile("/etc/profile");
-            //deleteOutput();
+            //uploadInputFile("/etc/profile");
+            deleteOutput();
         } catch (Exception e){
 
         }
