@@ -3,10 +3,10 @@ package examples;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Partitioner;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -21,7 +21,7 @@ public class WordCount {
         Configuration conf = new Configuration();
 
         String[] otherArgs = new String[2];
-        otherArgs[0] = "hdfs://127.0.0.1:9000/profile";
+        otherArgs[0] = "hdfs://127.0.0.1:9000/sqoop";
         otherArgs[1] = "hdfs://127.0.0.1:9000/out4";
         if (otherArgs.length < 2) {
             System.err.println("Usage: wordcount <in> [<in>...] <out>");
@@ -46,6 +46,8 @@ public class WordCount {
         job.setReducerClass(WordCount.IntSumReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
+        //job.setPartitionerClass(MyPartitioner.class);
+
         for (int i = 0; i < otherArgs.length - 1; ++i) {
             //3.输入文件
             FileInputFormat.addInputPath(job, new Path(otherArgs[i]));
@@ -61,6 +63,7 @@ public class WordCount {
         //job.waitForCompletion(true);
     }
 
+
     public static class TokenizerMapper extends Mapper<Object, Text, Text, IntWritable> {
 
         private final static IntWritable one = new IntWritable(1);
@@ -68,10 +71,32 @@ public class WordCount {
 
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
             StringTokenizer itr = new StringTokenizer(value.toString());
-            while (itr.hasMoreTokens()) {
-                word.set(itr.nextToken());
-                System.out.println(word.toString());
-                context.write(word, one);
+            if (itr.hasMoreTokens()) {
+                String[]  splits= itr.nextToken().split(",");
+                if(splits.length > 2){
+                    String proId = splits[2];
+                    if (itr.hasMoreTokens()) {
+                        String[] strings = itr.nextToken().split(",");
+                        if(strings.length > 3){
+                            String coment = strings[3];
+                            if(coment.contains("非常满意")){
+                                word.set(proId + "," + coment);
+                            } else if(coment.contains("很满意")){
+                                word.set(proId + "," + coment);
+                            } else if(coment.contains("好喝")){
+                                word.set(proId + "," + coment);
+                            } else if(coment.contains("不错")){
+                                word.set(proId + "," + coment);
+                            } else if(coment.contains("很好")){
+                                word.set(proId + "," + coment);
+                            } else if(coment.contains("好评")){
+                                word.set(proId + "," + coment);
+                            }
+
+                            context.write(word, one);
+                        }
+                    }
+                }
             }
         }
     }

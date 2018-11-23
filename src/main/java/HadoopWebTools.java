@@ -51,9 +51,9 @@ public class HadoopWebTools {
      * 删除hdfs中的文件
      * @throws IOException
      */
-    public static void deleteOutput() throws IOException{
+    public static void deleteOutput(String hdfsOutput) throws IOException{
         Configuration conf = new Configuration();
-        String hdfsOutput = "hdfs://localhost:9000/out4";
+        //String hdfsOutput = "hdfs://localhost:9000/out4";
         String hdfsPath = "hdfs://localhost:9000/";
         Path path = new Path(hdfsOutput);
         FileSystem fs = FileSystem.get(URI.create(hdfsPath), conf);
@@ -101,7 +101,8 @@ public class HadoopWebTools {
     public static void main(String[] args){
         try {
             //uploadInputFile("/etc/profile");
-            deleteOutput();
+            deleteOutput("hdfs://localhost:9000/out4");
+            deleteOutput("hdfs://localhost:9000/out5");
         } catch (Exception e){
 
         }
