@@ -80,17 +80,17 @@ public class WordCount {
                         if(strings.length > 3){
                             String coment = strings[3];
                             if(coment.contains("非常满意")){
-                                word.set(proId + "," + coment);
+                                word.set(proId);
                             } else if(coment.contains("很满意")){
-                                word.set(proId + "," + coment);
+                                word.set(proId);
                             } else if(coment.contains("好喝")){
-                                word.set(proId + "," + coment);
+                                word.set(proId);
                             } else if(coment.contains("不错")){
-                                word.set(proId + "," + coment);
+                                word.set(proId);
                             } else if(coment.contains("很好")){
-                                word.set(proId + "," + coment);
+                                word.set(proId);
                             } else if(coment.contains("好评")){
-                                word.set(proId + "," + coment);
+                                word.set(proId);
                             }
 
                             context.write(word, one);
